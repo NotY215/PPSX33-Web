@@ -24,7 +24,24 @@ document.addEventListener('DOMContentLoaded',()=>{
   fetch('https://api.github.com/repos/NotY215/PPSX33-Web/contents/Updates')
    .then(r=>{if(!r.ok)throw Error('Could not list Updates folder');return r.json()})
    .then(async files=>{
-    const imgs=files.filter(f=>f.type==='file'&&/\.(png|jpe?g|webp|gif)$/i.test(f.name)).sort((a,b)=>a.name.localeCompare(b.name));
+    const imgs=files.filter(f=>f.type==='file'&&/\.(png|jpe?g|webp|gif)$/i.test(f.name));
+    // Sort by each image's latest Git commit timestamp, newest first.
+    // Fall back to filename order if GitHub's commit API is unavailable.
+    await Promise.all(imgs.map(async f=>{
+     try{
+      const u='https://api.github.com/repos/NotY215/PPSX33-Web/commits?path='+encodeURIComponent(f.path)+'&per_page=1';
+      const r=await fetch(u,{headers:{Accept:'application/vnd.github+json'}});
+      if(!r.ok)throw Error('Commit timestamp unavailable');
+      const commits=await r.json();
+      f._updatedAt=commits[0]?.commit?.committer?.date||commits[0]?.commit?.author?.date||'';
+     }catch{f._updatedAt=''}
+    }));
+    imgs.sort((a,b)=>{
+     if(a._updatedAt&&b._updatedAt)return Date.parse(b._updatedAt)-Date.parse(a._updatedAt)||a.name.localeCompare(b.name);
+     if(a._updatedAt)return -1;
+     if(b._updatedAt)return 1;
+     return a.name.localeCompare(b.name);
+    });
     if(!imgs.length){g.innerHTML='<div class="loading-card">No snapshots are published yet.</div>';if(st)st.textContent='No image files were found in the Updates folder.';return}
     const cards=await Promise.all(imgs.map(async f=>{
      const caption=await captionFor(f.name);
