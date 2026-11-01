@@ -384,3 +384,15 @@ input::placeholder{color:#71869e}
 @media(max-width:900px) and (min-width:761px){.nav-shell{gap:10px}.main-nav{gap:2px}.main-nav a{min-width:40px;padding:8px}.main-nav a .nav-icon{width:20px;height:20px;flex-basis:20px}}
 @media(max-width:760px){.brand img{width:44px;height:44px}body>.main-nav.mobile-drawer a{justify-content:flex-start!important;gap:14px!important}body>.main-nav.mobile-drawer a .nav-icon{width:21px;height:21px;flex:0 0 21px;color:#8fdcff}body>.main-nav.mobile-drawer a .nav-label{position:static;transform:none;padding:0;border:0;border-radius:0;background:transparent;color:inherit;font-size:1rem;font-weight:650;line-height:1.35;opacity:1;visibility:visible;box-shadow:none}body>.main-nav.mobile-drawer .github-link{justify-content:flex-start!important}}
 @media(prefers-reduced-motion:reduce){.main-nav a .nav-icon,.main-nav a .nav-label{transition:none}}
+
+/* Compact icon sizing to match the Vayu-Web navigation proportions */
+.nav-shell{min-height:64px;gap:14px}
+.brand{min-width:38px;min-height:38px}
+.brand img{width:34px;height:34px;filter:drop-shadow(0 0 8px rgba(57,199,255,.1))}
+.main-nav{gap:3px}
+.main-nav a{min-width:38px;min-height:38px;padding:8px;border-radius:10px}
+.main-nav a .nav-icon{width:18px;height:18px;flex-basis:18px}
+.main-nav a .nav-label{top:calc(100% + 7px);padding:5px 8px;font-size:.7rem}
+.main-nav .github-link{margin-left:2px}
+@media(max-width:900px) and (min-width:761px){.nav-shell{min-height:60px;gap:8px}.brand img{width:31px;height:31px}.main-nav{gap:1px}.main-nav a{min-width:34px;min-height:34px;padding:7px}.main-nav a .nav-icon{width:17px;height:17px;flex-basis:17px}}
+@media(max-width:760px){.nav-shell{min-height:60px}.brand{min-width:36px;min-height:36px}.brand img{width:32px;height:32px}.main-nav a{min-height:46px}.main-nav a .nav-icon{width:20px;height:20px;flex-basis:20px}body>.main-nav.mobile-drawer a .nav-icon{width:20px;height:20px;flex-basis:20px}}
