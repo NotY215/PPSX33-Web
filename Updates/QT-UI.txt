@@ -1,0 +1,1 @@
+We have finally shifted from C# Ui to Proper Qt6-UI for faster and optimized ui
