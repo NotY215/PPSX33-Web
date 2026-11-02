@@ -14,6 +14,7 @@ RewriteRule ^Roadmap/?$ roadmap.html [L,NC]
 RewriteRule ^Updates/?$ updates.html [L,NC]
 RewriteRule ^FAQ/?$ faq.html [L,NC]
 RewriteRule ^Developer/?$ developer.html [L,NC]
+RewriteRule ^Donate/?$ donate.html [L,NC]
 <FilesMatch "^(.env|.git|composer.(json|lock)|package(-lock)?.json|tsconfig.json|phpunit.xml|README.*)$">
 Require all denied
 </FilesMatch>
