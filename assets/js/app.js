@@ -1,5 +1,13 @@
 document.addEventListener('DOMContentLoaded',()=>{
  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ // Keep Donate available across every page that uses the shared navigation.
+ const sharedNav=document.querySelector('.main-nav');
+ if(sharedNav&&!sharedNav.querySelector('[aria-label="Donate"]')){
+  const a=document.createElement('a');a.href='/Donate/';a.setAttribute('aria-label','Donate');a.title='Donate';
+  a.innerHTML='<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-8-4.5-8-10a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.5-8 10-8 10z"/></svg><span class="nav-label">Donate</span>';
+  const github=sharedNav.querySelector('.github-link');sharedNav.insertBefore(a,github||null);
+ }
+
  // Mobile navigation drawer, backdrop, Escape handling and focus-safe close behavior.
  const toggle=document.querySelector('.menu-toggle'),nav=document.querySelector('.main-nav');
  if(toggle&&nav){const marker=document.createComment('navigation-placeholder');nav.parentNode.insertBefore(marker,nav);let backdrop=document.querySelector('.nav-backdrop');if(!backdrop){backdrop=document.createElement('div');backdrop.className='nav-backdrop';backdrop.setAttribute('aria-hidden','true');document.body.appendChild(backdrop)}const mobile=()=>matchMedia('(max-width:760px)').matches;const open=()=>{if(!mobile())return;document.body.appendChild(nav);nav.classList.add('mobile-drawer','open');backdrop.classList.add('open');document.body.classList.add('nav-drawer-open');toggle.setAttribute('aria-expanded','true');toggle.setAttribute('aria-label','Close navigation')};const close=()=>{nav.classList.remove('open','mobile-drawer');backdrop.classList.remove('open');document.body.classList.remove('nav-drawer-open');toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Open navigation');if(marker.parentNode)marker.parentNode.insertBefore(nav,marker.nextSibling)};toggle.addEventListener('click',()=>toggle.getAttribute('aria-expanded')==='true'?close():open());backdrop.addEventListener('click',close);nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&toggle.getAttribute('aria-expanded')==='true'){close();toggle.focus()}});window.addEventListener('resize',()=>{if(!mobile()&&toggle.getAttribute('aria-expanded')==='true')close()});}
