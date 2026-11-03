@@ -30,8 +30,8 @@
 <div class="section-heading reveal"><span class="eyebrow">DESKTOP WORKFLOW</span><h2>Current desktop application architecture</h2><p>The desktop frontend has migrated from the older C# WinForms application to native C++ / Qt 6 Widgets. The UI migration is an architectural change, not a game-compatibility milestone.</p></div>
 <div class="feature-grid">
 <article class="feature-card reveal"><span class="card-index">DONE</span><h3>Qt 6 desktop frontend</h3><p>The native PPSX33.exe application provides the desktop workflow for loading ELF input, analysis, lifting, build, copy and execution. The frontend communicates with the core through the native bridge.</p></article>
-<article class="feature-card reveal"><span class="card-index">DONE</span><h3>Core and runtime separation</h3><p>ps3core.dll owns ELF and project processing. Generated game executables use ps3rt.dll with the graphics modules staged in the build output. The CMake build stages runtime artifacts under build/dist.</p></article>
-<article class="feature-card reveal"><span class="card-index">DONE</span><h3>Render workbench</h3><p>PPSX33.exe -render opens the Qt 6 desktop frontend, which rebuilds selected graphics module targets without re-lifting the game executable. The application accepts decrypted ELF input only.</p></article>
+<article class="feature-card reveal"><span class="card-index">DONE</span><h3>Core and runtime separation</h3><p>ps3core.dll owns ELF and project processing. Generated game executables use the unified ps3rt.dll runtime staged in build/dist. The CMake build stages runtime artifacts under build/dist.</p></article>
+
 </div>
 </section>
 <section class="section-shell section tinted">
