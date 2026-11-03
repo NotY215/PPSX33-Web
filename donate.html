@@ -15,5 +15,29 @@
 <a class="button primary" style="width:100%;margin-top:22px" href="https://a.co/d/09PBMxBx" target="_blank" rel="noopener noreferrer">Continue to Amazon ↗</a></section></div><section class="section-shell" style="padding-top:26px"><div class="donate-panel" style="max-width:850px;margin:auto;text-align:center"><span class="donate-kicker">COMMUNITY THANK-YOU</span><h2>Supporter wall</h2><p>With permission, supporter names or public handles will be added here after the gift is received and confirmed. Thank you to everyone who helps keep independent development moving.</p><div style="display:inline-flex;align-items:center;gap:9px;padding:10px 14px;border:1px dashed var(--pps-line);border-radius:12px;color:var(--pps-muted);font-size:.84rem">✦ Supporter names will appear here as they are confirmed</div></div></section><p class="section-shell donate-footer-note">Please never send passwords, payment-card details or other private information to me. Purchases are handled by Amazon; this website does not collect payments or card details.</p></main>
 <footer class="site-footer"><div class="section-shell footer-grid"><div><a class="brand" href="/"><span>PPSX33</span></a><p>Experimental PlayStation 3 full-recompilation research.</p></div><div><h4>Explore</h4><a href="/About/">About</a><a href="/Architecture/">Architecture</a><a href="/Documentation/">Wiki</a><a href="/Roadmap/">Roadmap</a></div><div><h4>Project</h4><a href="/Updates/">Updates</a><a href="/FAQ/">FAQ</a><a href="/Developer/">Developer</a><a href="/Donate/">Donate</a></div><div><h4>Source</h4><a href="https://github.com/NotY215/PPSX33">Core repository ↗</a><a href="https://github.com/NotY215/PPSX33-Web">Website source ↗</a></div></div><div class="section-shell footer-bottom"><span>© 2026 NotY215 · PPSX33</span><span>Independent development · Open source</span></div></footer>
 <script>
-(()=>{const display=document.getElementById('amount-display'),explain=document.getElementById('amount-explain');let timer=[];function stop(){timer.forEach(clearTimeout);timer=[]}function animateAmount(amount){stop();display.textContent='$0.00';display.classList.remove('bump');const steps=amount===5?[['5',250],['50',650],['500',1050]]:[['1',250],['10',500],['100',750],['1000',1050]];steps.forEach(([raw,delay],i)=>timer.push(setTimeout(()=>{const value=Number(raw)/100;display.textContent=value.toLocaleString('en-US',{style:'currency',currency:'USD'});display.classList.remove('bump');void display.offsetWidth;display.classList.add('bump');if(i===steps.length-1)explain.textContent=amount===5?'Type 5, then press 0 twice. The example finishes at $5.00. This animation is a guide only; it does not interact with Amazon.':'Example amount shown: $10.00. Enter your own chosen amount in Amazon’s custom amount field.',},delay)))}document.getElementById('demo-five').addEventListener('click',()=>animateAmount(5));document.getElementById('demo-ten').addEventListener('click',()=>animateAmount(10));document.getElementById('demo-reset').addEventListener('click',()=>{stop();display.textContent='$0.00';explain.textContent='Choose an example to see how an amount can be entered. This is only a visual guide.'});document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',async()=>{const value=b.dataset.copy;try{await navigator.clipboard.writeText(value);document.getElementById('copy-note').textContent='Copied '+value+' to clipboard.'}catch{document.getElementById('copy-note').textContent='Copy is unavailable in this browser. Select the address text and copy it manually.'}}));})();
+document.addEventListener('DOMContentLoaded',()=>{
+ const display=document.getElementById('amount-display'),explain=document.getElementById('amount-explain');
+ const five=document.getElementById('demo-five'),ten=document.getElementById('demo-ten'),reset=document.getElementById('demo-reset');
+ const copyNote=document.getElementById('copy-note');
+ if(!display||!explain||!five||!ten||!reset)return;
+ let timers=[];
+ const stop=()=>{timers.forEach(id=>clearTimeout(id));timers=[];};
+ const show=amount=>{
+  stop();display.classList.remove('bump');display.textContent='$0.00';
+  explain.textContent='Showing the example amount. This is a visual guide only and does not interact with Amazon.';
+  const values=amount===5?[5,50,500]:[10,100,1000];
+  values.forEach((cents,index)=>timers.push(setTimeout(()=>{
+   display.textContent=(cents/100).toLocaleString('en-US',{style:'currency',currency:'USD'});
+   display.classList.remove('bump');void display.offsetWidth;display.classList.add('bump');
+   if(index===values.length-1)explain.textContent='The example finishes at '+(cents/100).toLocaleString('en-US',{style:'currency',currency:'USD'})+'. Enter your chosen amount directly on Amazon.';
+  },250+index*450)));
+ };
+ five.addEventListener('click',()=>show(5));ten.addEventListener('click',()=>show(10));
+ reset.addEventListener('click',()=>{stop();display.classList.remove('bump');display.textContent='$0.00';explain.textContent='Choose an example to see the amount animation. This is only a visual guide.';});
+ document.querySelectorAll('[data-copy]').forEach(button=>button.addEventListener('click',async()=>{
+  if(!copyNote)return;const value=button.dataset.copy;
+  try{if(!navigator.clipboard||!window.isSecureContext)throw Error('Clipboard unavailable');await navigator.clipboard.writeText(value);copyNote.textContent='Copied '+value+' to clipboard.';}
+  catch{copyNote.textContent='Copy is unavailable here. Select the address text and copy it manually.';}
+ }));
+});
 </script></body></html>
