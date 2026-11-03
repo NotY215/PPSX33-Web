@@ -11,7 +11,7 @@
 <article class="prose reveal">
 <span class="eyebrow">ABOUT THE WORK</span><h2>Systems, runtime and graphics research</h2>
 <p>PPSX33 is being developed toward full recompilation: supported PPU regions are translated into generated native code, then linked against host runtime services. The project also works on LV2 and PRX services, SPU/MFC/DMA behavior, and RSX/GCM graphics.</p>
-<p>The current desktop interface is native C++ with Qt 6 Widgets. <code>ps3core.dll</code> provides ELF analysis and lifting functionality, while the generated Windows executable uses the unified <code>ps3rt.dll</code> runtime. Vulkan 1.2 is the default host presentation path.</p>
+<p>The current desktop interface is native C++ with Qt 6 Widgets. <code>ps3core.dll</code> provides ELF analysis and lifting functionality, while the generated Windows executable uses the unified <code>ps3rt.dll</code> runtime. The CMake build stages <code>ps3core.dll</code>, <code>ps3rt.dll</code>, the Vulkan loader and runtime headers under <code>build/dist/</code>. Vulkan 1.2 is the default host presentation path.</p>
 <h2>Engineering principles</h2>
 <ul><li>Report implemented code separately from verified behavior.</li><li>Use reproducible logs and title-specific evidence for compatibility claims.</li><li>Keep architecture, ownership and build documentation aligned with the source tree.</li><li>Prioritize correctness in control flow, guest runtime behavior and title-authored rendering.</li><li>Do not treat a successful lift, build, clear or diagnostic draw as proof of playability.</li></ul>
 </article>
