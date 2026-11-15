@@ -34,9 +34,8 @@ function bootPPSX33Motion(): void {
     let local = 0;
     steps.forEach((step, index) => {
       if (scroll + viewport * .52 >= step.offsetTop) current = index;
-      if (scroll < step.offsetTop + step.offsetHeight && local === 0)
-        local = clampMotion((scroll + viewport * .52 - step.offsetTop) / step.offsetHeight);
     });
+    local = clampMotion((scroll + viewport * .52 - steps[current].offsetTop) / steps[current].offsetHeight);
     steps.forEach((step, index) => step.classList.toggle('is-active', index === current));
     if (current !== active) {
       active = current;
