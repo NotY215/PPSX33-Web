@@ -48,7 +48,6 @@
 .motion-step:nth-of-type(odd){justify-content:flex-start}
 .motion-step:nth-of-type(even){justify-content:flex-end}
 .motion-step:nth-of-type(even) .motion-copy{text-align:right;margin-left:auto}
-. pen-step:nth-of-type(even) .motion-copy p{margin-left:auto}
 .motion-step:nth-of-type(even) .motion-copy p{margin-left:auto}
 
 .motion-intro{align-items:center}
@@ -58,7 +57,7 @@
 /* Welcome: true 3D zoom + progressive brightness driven by both CSS class and GSAP. */
 .motion-welcome{align-items:center;justify-content:center;text-align:center}
 .motion-welcome .motion-copy,.motion-continue .motion-copy{width:min(850px,90vw);border:0;background:none;box-shadow:none;backdrop-filter:none}
-.motion-welcome .motion-copy{width:min(920px,94vw);min-height:0}
+.motion-welcome .motion-copy{width:min(920px,94vw};min-height:0}
 .motion-welcome .motion-copy h2{
   font-size:clamp(4rem,12vw,10rem);
   letter-spacing:-.085em;
