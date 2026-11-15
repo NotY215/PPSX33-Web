@@ -53,7 +53,7 @@ function bootPPSX33Motion(): void {
     transform(triangle, lerpMotion(-width * .26, 0, triangleT), lerpMotion(-110, -8, triangleT), lerpMotion(-28, 0, triangleT), lerpMotion(.65, 1, triangleT), Math.max(0, 1 - controllerT) * fade);
     transform(square, lerpMotion(width * .28, 0, squareT), lerpMotion(100, 0, squareT), squareT * 540, lerpMotion(.55, 1, squareT), Math.max(0, squareT) * fade);
     transform(cross, lerpMotion(-width * .18, 0, crossT), lerpMotion(-10, 0, crossT), lerpMotion(90, 450, crossT), lerpMotion(.55, 1, crossT), Math.max(0, crossT) * fade);
-    transform(controller, 0, lerpMotion(100, 0, controllerT), lerpMotion(-12, 0, controllerT), lerpMotion(.65, 1, controllerT), controllerT);
+    const welcomeT = clampMotion((scroll + viewport * .5 - steps[5].offsetTop) / viewport);\n    transform(controller, 0, lerpMotion(100, 0, controllerT), lerpMotion(-12, 0, controllerT), lerpMotion(.65, 1, controllerT), controllerT * (1 - smoothMotion(welcomeT)));
     if (!reducedMotion && current === 6 && local > .58 && !navigated) {
       navigated = true;
       location.assign('/About/');
