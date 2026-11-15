@@ -1,0 +1,51 @@
+/* PPSX33 original homepage look, enhanced with lightweight GPU-friendly motion. */
+.ppsx-home-hero{min-height:calc(100svh - 72px);display:flex;align-items:center;padding-top:70px;padding-bottom:70px}
+.home-hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);align-items:center;gap:clamp(30px,5vw,70px);width:100%}
+.home-hero-copy{position:relative;z-index:2}
+.home-hero-copy h1 span{background:linear-gradient(100deg,#f2f9ff 5%,#82dcff 50%,#8798ff 95%);background-clip:text;-webkit-background-clip:text;color:transparent}
+.home-hero-copy .eyebrow{display:inline-flex;align-items:center;gap:10px}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#5be6ae;box-shadow:0 0 12px #5be6ae;animation:livePulse 1.8s ease-in-out infinite}
+.home-facts{display:flex;gap:clamp(16px,3vw,32px);flex-wrap:wrap;margin-top:26px;color:#88a4bc;font:700 .76rem ui-monospace,monospace;letter-spacing:.08em}
+.home-facts b{color:#64d9ff;margin-right:7px}
+.home-console{position:relative;min-width:0;perspective:1200px;transform-style:preserve-3d}
+.console-top,.console-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#87a9c5;font:700 .62rem ui-monospace,monospace;letter-spacing:.11em}
+.console-top{padding:0 4px 13px}
+.console-mark{display:flex;gap:4px}.console-mark i{width:7px;height:7px;border-radius:50%;background:#4b789a}.console-mark i:first-child{background:#59d6ff}
+.status-pill{border:1px solid rgba(75,201,255,.3);border-radius:20px;padding:5px 9px;color:#76dcff}
+.console-screen{position:relative;overflow:hidden;padding:clamp(18px,2.5vw,28px);border:1px solid rgba(92,190,255,.27);border-radius:24px;background:linear-gradient(145deg,rgba(14,37,61,.94),rgba(4,12,24,.97));box-shadow:0 28px 90px rgba(0,0,0,.42),0 0 70px rgba(31,150,255,.13),inset 0 1px rgba(255,255,255,.07);transform:rotateY(-7deg) rotateX(3deg);transform-style:preserve-3d;will-change:transform}
+.console-screen:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 20%,rgba(111,218,255,.07) 48%,transparent 70%);transform:translateX(-110%);animation:consoleSweep 7s ease-in-out infinite}
+.console-label{display:flex;justify-content:space-between;color:#7398b5;font:700 .62rem ui-monospace,monospace;letter-spacing:.14em}
+.console-label span{color:#51d7a2}
+.console-flow{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1.15fr) auto minmax(0,1fr);align-items:center;gap:clamp(6px,1vw,12px);margin:34px 0 30px}
+.console-flow>i{color:#4bcfff;font-style:normal;text-shadow:0 0 12px rgba(75,207,255,.7)}
+.console-node{min-width:0;display:grid;gap:5px;padding:15px 10px;border:1px solid rgba(106,165,205,.2);border-radius:13px;background:rgba(7,21,36,.82);text-align:center;box-shadow:inset 0 1px rgba(255,255,255,.035);transition:border-color .3s,box-shadow .3s}
+.console-node small,.console-runtime span,.console-metrics small{color:#6f91ab;font:700 .56rem ui-monospace,monospace;letter-spacing:.1em}
+.console-node b{font-size:clamp(.72rem,1.3vw,1rem);color:#e4f6ff;white-space:nowrap}
+.console-node span{font-size:.68rem;color:#8ba8c1}
+.console-node.active{border-color:rgba(63,201,255,.6);box-shadow:0 0 24px rgba(38,160,255,.14),inset 0 0 20px rgba(48,150,255,.06)}
+.console-runtime{padding:17px;border:1px solid rgba(81,174,226,.15);border-radius:13px;background:rgba(3,12,23,.55)}
+.console-runtime>div:first-child{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.console-runtime b{color:#8de5ff;font:700 .95rem ui-monospace,monospace}
+.runtime-track{height:4px;margin:13px 0 9px;background:rgba(115,172,210,.13);border-radius:8px;overflow:hidden}
+.runtime-track i{display:block;width:68%;height:100%;border-radius:8px;background:linear-gradient(90deg,#28b7ed,#6c8cff);box-shadow:0 0 15px #36bfff;transform-origin:left;animation:runtimePulse 3.2s ease-in-out infinite alternate}
+.console-runtime>small{color:#718da7;font:600 .58rem ui-monospace,monospace;letter-spacing:.06em}
+.console-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:17px}
+.console-metrics>div{display:grid;gap:5px;padding:11px 12px;border-left:1px solid rgba(91,177,228,.2)}
+.console-metrics b{font-size:.78rem;color:#d9efff}
+.console-footer{padding:13px 5px 0;color:#6687a2;font-size:.55rem}
+.art-line{height:1px;flex:1;background:linear-gradient(90deg,transparent,#39c9ff,transparent);box-shadow:0 0 10px rgba(57,201,255,.4)}
+.console-glow{position:absolute;inset:15% 5%;z-index:-1;border-radius:50%;background:rgba(32,139,255,.14);filter:blur(55px);animation:consoleAura 6s ease-in-out infinite alternate}
+.home-hero-art{opacity:0;transform:translate3d(0,28px,0)}
+.home-hero-copy>*{opacity:0;transform:translate3d(0,18px,0)}
+.ppsx-home-hero .home-hero-copy.is-ready>*{opacity:1;transform:none;transition:opacity .7s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.ppsx-home-hero .home-hero-copy.is-ready>*:nth-child(2){transition-delay:.08s}
+.ppsx-home-hero .home-hero-copy.is-ready>*:nth-child(3){transition-delay:.15s}
+.ppsx-home-hero .home-hero-copy.is-ready>*:nth-child(4){transition-delay:.22s}
+.ppsx-home-hero .home-hero-copy.is-ready>*:nth-child(5){transition-delay:.29s}
+@keyframes livePulse{50%{opacity:.5;box-shadow:0 0 3px #5be6ae}}
+@keyframes consoleSweep{0%,35%{transform:translateX(-110%)}70%,100%{transform:translateX(110%)}}
+@keyframes runtimePulse{to{width:84%;filter:brightness(1.35)}}
+@keyframes consoleAura{to{transform:scale(1.18);opacity:.65}}
+@media(max-width:900px){.ppsx-home-hero{min-height:auto;padding-top:68px;padding-bottom:55px}.home-hero-grid{grid-template-columns:1fr;gap:35px}.home-hero-copy{max-width:760px}.home-console{width:min(100%,680px);margin:auto}.console-screen{transform:none}}
+@media(max-width:600px){.ppsx-home-hero{padding-top:54px}.home-hero-grid{gap:28px}.console-screen{padding:16px;border-radius:18px}.console-flow{gap:5px;margin:23px 0}.console-node{padding:11px 5px}.console-node b{font-size:.72rem}.console-node span{font-size:.58rem}.console-runtime{padding:13px}.console-metrics{gap:6px}.console-metrics>div{padding:9px 7px}.console-metrics b{font-size:.68rem}.console-footer{font-size:.48rem}}
+@media(prefers-reduced-motion:reduce){.live-dot,.console-screen:before,.runtime-track i,.console-glow{animation:none!important}.home-hero-art,.home-hero-copy>*{opacity:1!important;transform:none!important;transition:none!important}}
