@@ -8,6 +8,16 @@ document.addEventListener('DOMContentLoaded',()=>{
   const github=sharedNav.querySelector('.github-link');sharedNav.insertBefore(a,github||null);
  }
 
+
+ // Requirements page is part of the shared navigation on every site page.
+ const requirementsNav=document.querySelector('.main-nav');
+ if(requirementsNav&&!requirementsNav.querySelector('a[href="/Requirements/"]')){
+  const link=document.createElement('a');link.href='/Requirements/';link.setAttribute('aria-label','Requirements');link.title='Requirements';
+  link.innerHTML='<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h5m-5 4h8"/></svg><span class="nav-label">Requirements</span>';
+  const anchor=requirementsNav.querySelector('a[href="/Architecture/"]');if(anchor)anchor.after(link);else requirementsNav.appendChild(link);
+  if(/^\\/Requirements(?:\\/|$)/i.test(location.pathname))link.classList.add('active');
+ }
+
  // Mobile navigation drawer, backdrop, Escape handling and focus-safe close behavior.
  const toggle=document.querySelector('.menu-toggle'),nav=document.querySelector('.main-nav');
  if(toggle&&nav){const marker=document.createComment('navigation-placeholder');nav.parentNode.insertBefore(marker,nav);let backdrop=document.querySelector('.nav-backdrop');if(!backdrop){backdrop=document.createElement('div');backdrop.className='nav-backdrop';backdrop.setAttribute('aria-hidden','true');document.body.appendChild(backdrop)}const mobile=()=>matchMedia('(max-width:760px)').matches;const open=()=>{if(!mobile())return;document.body.appendChild(nav);nav.classList.add('mobile-drawer','open');backdrop.classList.add('open');document.body.classList.add('nav-drawer-open');toggle.setAttribute('aria-expanded','true');toggle.setAttribute('aria-label','Close navigation')};const close=()=>{nav.classList.remove('open','mobile-drawer');backdrop.classList.remove('open');document.body.classList.remove('nav-drawer-open');toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Open navigation');if(marker.parentNode)marker.parentNode.insertBefore(nav,marker.nextSibling)};toggle.addEventListener('click',()=>toggle.getAttribute('aria-expanded')==='true'?close():open());backdrop.addEventListener('click',close);nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&toggle.getAttribute('aria-expanded')==='true'){close();toggle.focus()}});window.addEventListener('resize',()=>{if(!mobile()&&toggle.getAttribute('aria-expanded')==='true')close()});}
