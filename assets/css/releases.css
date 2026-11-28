@@ -158,3 +158,6 @@
 .release-core img{animation:xmbGlow 4s ease-in-out infinite}
 @media(max-width:700px){.release-card-body{padding:0 15px 18px}.release-notes-panel{padding:16px}.release-asset{align-items:flex-start;flex-direction:column}.featured-inner{grid-template-columns:1fr}.featured-download{display:none}.release-section-heading,.release-toolbar{align-items:flex-start;flex-direction:column}.release-search{width:100%}}
 @media(prefers-reduced-motion:reduce){.release-core img{animation:none!important}.release-guide-card:hover,.download-button:hover{transform:none}}
+
+.release-starfield{position:absolute;inset:0 0 auto;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:.72;mix-blend-mode:screen}
+.release-page{isolation:isolate}
