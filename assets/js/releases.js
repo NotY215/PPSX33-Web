@@ -2,6 +2,11 @@
 const API='https://api.github.com/repos/NotY215/PPSX33/releases?per_page=100';
 const featured=document.getElementById('release-featured'),list=document.getElementById('release-list'),status=document.getElementById('release-status'),filter=document.getElementById('release-filter');
 if(!featured||!list)return;
+const space=document.createElement('canvas');space.className='release-starfield';space.setAttribute('aria-hidden','true');document.querySelector('.release-page')?.prepend(space);
+const ctx=space.getContext('2d');let stars=[],raf=0,w=0,h=0;
+function seedSpace(){if(!ctx)return;const dpr=Math.min(devicePixelRatio||1,1.5),rect=space.parentElement.getBoundingClientRect();w=rect.width;h=Math.max(rect.height,1200);space.width=Math.floor(w*dpr);space.height=Math.floor(h*dpr);space.style.width=w+'px';space.style.height=h+'px';ctx.setTransform(dpr,0,0,dpr,0,0);stars=Array.from({length:Math.min(150,Math.floor(w*h/8500))},()=>({x:Math.random()*w,y:Math.random()*h,r:.35+Math.random()*1.25,a:.18+Math.random()*.55,s:.08+Math.random()*.24,p:Math.random()*6.28}));}
+function drawSpace(){if(!ctx)return;ctx.clearRect(0,0,w,h);for(const s of stars){s.p+=.012;s.y-=s.s;if(s.y<0)s.y=h;ctx.globalAlpha=s.a*(.72+.28*Math.sin(s.p));ctx.fillStyle='#9edfff';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill()}ctx.globalAlpha=1;if(!matchMedia('(prefers-reduced-motion: reduce)').matches)raf=requestAnimationFrame(drawSpace)}
+if(ctx){seedSpace();drawSpace();addEventListener('resize',()=>{cancelAnimationFrame(raf);seedSpace();drawSpace()},{passive:true})}
 let releases=[];
 const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n};
 const date=s=>{if(!s)return 'Date unavailable';const d=new Date(s);return Number.isNaN(d.getTime())?'Date unavailable':new Intl.DateTimeFormat(undefined,{year:'numeric',month:'short',day:'numeric'}).format(d)};
