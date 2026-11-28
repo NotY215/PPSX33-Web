@@ -88,3 +88,17 @@ document.addEventListener('DOMContentLoaded',()=>{
    });
  }
 });
+
+/* Original synthesized PPSX33 interface sounds. No third-party audio embeds or copyrighted samples. */
+(()=>{'use strict';
+let audio=null;
+const context=()=>{const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;if(!audio)audio=new C();return audio};
+function tone(freq,start,duration,type='sine',volume=.045,slide=0){const c=context();if(!c)return;const osc=c.createOscillator(),gain=c.createGain();osc.type=type;osc.frequency.setValueAtTime(freq,c.currentTime+start);if(slide)osc.frequency.exponentialRampToValueAtTime(Math.max(1,freq+slide),c.currentTime+start+duration);gain.gain.setValueAtTime(.0001,c.currentTime+start);gain.gain.exponentialRampToValueAtTime(volume,c.currentTime+start+.025);gain.gain.exponentialRampToValueAtTime(.0001,c.currentTime+start+duration);osc.connect(gain);gain.connect(c.destination);osc.start(c.currentTime+start);osc.stop(c.currentTime+start+duration+.03)}
+function play(kind){const c=context();if(!c)return;const run=()=>{if(kind==='startup'){tone(392,0,.55,'sine',.035,110);tone(587.33,.13,.62,'sine',.03,140);tone(783.99,.32,.8,'sine',.025,90)}else if(kind==='download'){tone(659.25,0,.16,'sine',.04);tone(783.99,.13,.18,'sine',.045);tone(987.77,.28,.3,'sine',.05);tone(1318.5,.48,.52,'sine',.035)}else{tone(880,0,.075,'sine',.035);tone(1174.66,.085,.18,'sine',.03)}};if(c.state==='suspended')c.resume().then(run).catch(()=>{});else run()}
+function unlock(){const c=context();if(c&&c.state==='suspended')c.resume().catch(()=>{});window.removeEventListener('pointerdown',unlock)}
+window.addEventListener('pointerdown',unlock,{once:true,passive:true});
+window.addEventListener('keydown',unlock,{once:true});
+window.addEventListener('load',()=>{play('startup')},{once:true});
+document.addEventListener('click',event=>{const target=event.target.closest('a,button,[role="button"]');if(!target)return;const isDownload=target.dataset.ps3Sound==='download'||target.classList.contains('download-button')||target.hasAttribute('download');play(isDownload?'download':'click')},true);
+window.PPSX33Sounds={play};
+})();
