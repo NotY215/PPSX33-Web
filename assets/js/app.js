@@ -18,6 +18,15 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(/^\\/Requirements(?:\\/|$)/i.test(location.pathname))link.classList.add('active');
  }
 
+ // Releases page is part of the shared navigation on every site page.
+ const releasesNav=document.querySelector('.main-nav');
+ if(releasesNav&&!releasesNav.querySelector('a[href="/Release/"]')){
+  const link=document.createElement('a');link.href='/Release/';link.setAttribute('aria-label','Releases');link.title='Releases';
+  link.innerHTML='<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14v18l-7-4-7 4z"/><path d="M9 8h6m-6 4h6"/></svg><span class="nav-label">Releases</span>';
+  const target=releasesNav.querySelector('a[href="/Roadmap/"]');if(target)target.before(link);else releasesNav.appendChild(link);
+  if(/^\\/Release(?:\\/|$)/i.test(location.pathname))link.classList.add('active');
+ }
+
  // Mobile navigation drawer, backdrop, Escape handling and focus-safe close behavior.
  const toggle=document.querySelector('.menu-toggle'),nav=document.querySelector('.main-nav');
  if(toggle&&nav){const marker=document.createComment('navigation-placeholder');nav.parentNode.insertBefore(marker,nav);let backdrop=document.querySelector('.nav-backdrop');if(!backdrop){backdrop=document.createElement('div');backdrop.className='nav-backdrop';backdrop.setAttribute('aria-hidden','true');document.body.appendChild(backdrop)}const mobile=()=>matchMedia('(max-width:760px)').matches;const open=()=>{if(!mobile())return;document.body.appendChild(nav);nav.classList.add('mobile-drawer','open');backdrop.classList.add('open');document.body.classList.add('nav-drawer-open');toggle.setAttribute('aria-expanded','true');toggle.setAttribute('aria-label','Close navigation')};const close=()=>{nav.classList.remove('open','mobile-drawer');backdrop.classList.remove('open');document.body.classList.remove('nav-drawer-open');toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Open navigation');if(marker.parentNode)marker.parentNode.insertBefore(nav,marker.nextSibling)};toggle.addEventListener('click',()=>toggle.getAttribute('aria-expanded')==='true'?close():open());backdrop.addEventListener('click',close);nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&toggle.getAttribute('aria-expanded')==='true'){close();toggle.focus()}});window.addEventListener('resize',()=>{if(!mobile()&&toggle.getAttribute('aria-expanded')==='true')close()});}
