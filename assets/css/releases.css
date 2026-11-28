@@ -161,3 +161,16 @@
 
 .release-starfield{position:absolute;inset:0 0 auto;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:.72;mix-blend-mode:screen}
 .release-page{isolation:isolate}
+
+
+.development-status{display:flex;align-items:center;gap:11px;flex-wrap:wrap;width:fit-content;max-width:100%;margin:20px 0 4px;padding:11px 15px;border:1px solid rgba(255,181,83,.32);border-radius:12px;background:linear-gradient(100deg,rgba(255,163,64,.11),rgba(26,112,170,.08));box-shadow:0 0 28px rgba(255,160,65,.06)}
+.development-status strong{color:#ffd18a;font:850 .68rem ui-monospace,monospace;letter-spacing:.13em}
+.development-status>span:last-child{color:#a9bfd0;font-size:.78rem}
+.development-pulse{width:8px;height:8px;flex:0 0 8px;border-radius:50%;background:#ffb45c;box-shadow:0 0 14px rgba(255,180,92,.8);animation:devPulse 1.7s ease-in-out infinite}
+@keyframes devPulse{50%{opacity:.42;transform:scale(.75)}}
+.source-downloads{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.featured-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.featured-download-button{min-height:48px}
+.release-assets .release-asset .download-button{white-space:nowrap}
+@media(max-width:600px){.development-status{align-items:flex-start}.development-status>span:last-child{flex-basis:100%;padding-left:19px}.source-downloads{display:grid}.source-downloads .download-button{width:100%}}
+@media(prefers-reduced-motion:reduce){.development-pulse{animation:none}}
