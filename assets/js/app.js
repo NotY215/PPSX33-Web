@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded',()=>{
  if(releasesNav&&!releasesNav.querySelector('a[href="/Release/"]')){
   const link=document.createElement('a');link.href='/Release/';link.setAttribute('aria-label','Releases');link.title='Releases';
   link.innerHTML='<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h14v18l-7-4-7 4z"/><path d="M9 8h6m-6 4h6"/></svg><span class="nav-label">Releases</span>';
-  const target=releasesNav.querySelector('a[href="/Roadmap/"]');if(target)target.before(link);else releasesNav.appendChild(link);
+  const target=releasesNav.querySelector('a[href="/FAQ/"]');if(target)target.after(link);else releasesNav.appendChild(link);
   if(/^\\/Release(?:\\/|$)/i.test(location.pathname))link.classList.add('active');
  }
 
