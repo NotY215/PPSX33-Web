@@ -49,3 +49,25 @@
 @media(max-width:900px){.ppsx-home-hero{min-height:auto;padding-top:68px;padding-bottom:55px}.home-hero-grid{grid-template-columns:1fr;gap:35px}.home-hero-copy{max-width:760px}.home-console{width:min(100%,680px);margin:auto}.console-screen{transform:none}}
 @media(max-width:600px){.ppsx-home-hero{padding-top:54px}.home-hero-grid{gap:28px}.console-screen{padding:16px;border-radius:18px}.console-flow{gap:5px;margin:23px 0}.console-node{padding:11px 5px}.console-node b{font-size:.72rem}.console-node span{font-size:.58rem}.console-runtime{padding:13px}.console-metrics{gap:6px}.console-metrics>div{padding:9px 7px}.console-metrics b{font-size:.68rem}.console-footer{font-size:.48rem}}
 @media(prefers-reduced-motion:reduce){.live-dot,.console-screen:before,.runtime-track i,.console-glow{animation:none!important}.home-hero-art,.home-hero-copy>*{opacity:1!important;transform:none!important;transition:none!important}}
+
+
+/* Hosting-safe visibility fallback.
+   Content must remain readable even if an animation script or CDN is unavailable. */
+.reveal,
+.reveal.is-visible,
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  visibility: visible;
+}
+.home-hero-art {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+}
+.home-hero-copy > * {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+}
