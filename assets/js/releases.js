@@ -10,7 +10,7 @@ const badge=r=>el('span','release-badge'+(r.prerelease?' prerelease':''),r.prere
 const releaseUrl=r=>r.html_url||'https://github.com/NotY215/PPSX33/releases';
 function inline(parent,s){
  const re=/(!?)\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)|(\*\*[^*]+\*\*|__[^_]+__|\*[^*\n]+\*|_[^_\n]+_|\x60[^\x60]+\x60)/g;let last=0,m;
- while((m=re.exec(s))){parent.append(document.createTextNode(s.slice(last,m.index)));if(m[3]){if(m[1]){parent.append(document.createTextNode(m[2]));}else{const a=el('a','markdown-link',m[2]);a.href=m[3];a.target='_blank';a.rel='noopener noreferrer';parent.append(a)}}else{const token=m[4],tag=token.startsWith('```')?'code':token.startsWith('`')?'code':token.startsWith('**')||token.startsWith('__')?'strong': 'em';const n=document.createElement(tag);n.textContent=token.replace(/^(\*\*|__|\*|_|\x60)|(?<!^)\1$/g,'').replace(/^\x60|\x60$/g,'');if(tag==='code')n.className='markdown-inline-code';parent.append(n)}last=re.lastIndex}
+ while((m=re.exec(s))){parent.append(document.createTextNode(s.slice(last,m.index)));if(m[3]){if(m[1]){parent.append(document.createTextNode(m[2]));}else{const a=el('a','markdown-link',m[2]);a.href=m[3];a.target='_blank';a.rel='noopener noreferrer';parent.append(a)}}else{const token=m[4],tag=token.startsWith('```')?'code':token.startsWith('`')?'code':token.startsWith('**')||token.startsWith('__')?'strong': 'em';const n=document.createElement(tag),mark=token.startsWith('**')||token.startsWith('__')?2:1;n.textContent=token.slice(mark,-mark);if(tag==='code')n.className='markdown-inline-code';parent.append(n)}last=re.lastIndex}
  parent.append(document.createTextNode(s.slice(last)));
 }
 function markdown(source){
