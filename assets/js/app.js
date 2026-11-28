@@ -89,16 +89,16 @@ document.addEventListener('DOMContentLoaded',()=>{
  }
 });
 
-/* Original synthesized PPSX33 interface sounds. No third-party audio embeds or copyrighted samples. */
+/* Original PPSX33 interface sounds. Browsers require a user gesture before audio can start. */
 (()=>{'use strict';
-let audio=null;
-const context=()=>{const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;if(!audio)audio=new C();return audio};
-function tone(freq,start,duration,type='sine',volume=.045,slide=0){const c=context();if(!c)return;const osc=c.createOscillator(),gain=c.createGain();osc.type=type;osc.frequency.setValueAtTime(freq,c.currentTime+start);if(slide)osc.frequency.exponentialRampToValueAtTime(Math.max(1,freq+slide),c.currentTime+start+duration);gain.gain.setValueAtTime(.0001,c.currentTime+start);gain.gain.exponentialRampToValueAtTime(volume,c.currentTime+start+.025);gain.gain.exponentialRampToValueAtTime(.0001,c.currentTime+start+duration);osc.connect(gain);gain.connect(c.destination);osc.start(c.currentTime+start);osc.stop(c.currentTime+start+duration+.03)}
-function play(kind){const c=context();if(!c)return;const run=()=>{if(kind==='startup'){tone(392,0,.55,'sine',.035,110);tone(587.33,.13,.62,'sine',.03,140);tone(783.99,.32,.8,'sine',.025,90)}else if(kind==='download'){tone(659.25,0,.16,'sine',.04);tone(783.99,.13,.18,'sine',.045);tone(987.77,.28,.3,'sine',.05);tone(1318.5,.48,.52,'sine',.035)}else{tone(880,0,.075,'sine',.035);tone(1174.66,.085,.18,'sine',.03)}};if(c.state==='suspended')c.resume().then(run).catch(()=>{});else run()}
-function unlock(){const c=context();if(c&&c.state==='suspended')c.resume().catch(()=>{});window.removeEventListener('pointerdown',unlock)}
-window.addEventListener('pointerdown',unlock,{once:true,passive:true});
-window.addEventListener('keydown',unlock,{once:true});
-window.addEventListener('load',()=>{play('startup')},{once:true});
-document.addEventListener('click',event=>{const target=event.target.closest('a,button,[role="button"]');if(!target)return;const isDownload=target.dataset.ps3Sound==='download'||target.classList.contains('download-button')||target.hasAttribute('download');play(isDownload?'download':'click')},true);
+let audio=null,unlocked=false,startupPending=true;
+const getAudio=()=>{const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;if(!audio)audio=new C();return audio};
+function note(c,freq,at,dur,volume=.04,shape='sine'){const o=c.createOscillator(),g=c.createGain();o.type=shape;o.frequency.setValueAtTime(freq,at);g.gain.setValueAtTime(.0001,at);g.gain.exponentialRampToValueAtTime(volume,at+.025);g.gain.exponentialRampToValueAtTime(.0001,at+dur);o.connect(g);g.connect(c.destination);o.start(at);o.stop(at+dur+.04)}
+function play(kind){const c=getAudio();if(!c)return;if(c.state==='suspended'){c.resume().then(()=>play(kind)).catch(()=>{});return}const t=c.currentTime+.025;if(kind==='startup'){note(c,392,t,.48,.035);note(c,587.33,t+.13,.58,.03);note(c,783.99,t+.34,.72,.026);note(c,1046.5,t+.62,.82,.018)}else if(kind==='download'){note(c,659.25,t,.15,.04);note(c,783.99,t+.13,.17,.045);note(c,987.77,t+.29,.25,.05);note(c,1318.5,t+.5,.48,.035)}else{note(c,880,t,.07,.035);note(c,1174.66,t+.09,.17,.03)}}
+function activate(){if(unlocked)return;unlocked=true;const c=getAudio();if(!c)return;c.resume().then(()=>{if(startupPending){startupPending=false;play('startup')}}).catch(()=>{})}
+window.addEventListener('pointerdown',activate,{capture:true,passive:true});
+window.addEventListener('keydown',activate,{capture:true});
+window.addEventListener('load',()=>{const c=getAudio();if(c){c.resume().then(()=>{if(c.state==='running'){startupPending=false;play('startup')}}).catch(()=>{})}},{once:true});
+document.addEventListener('click',event=>{const target=event.target.closest('a,button,[role="button"]');if(!target)return;if(startupPending){activate();return}const isDownload=target.dataset.ps3Sound==='download'||target.classList.contains('download-button')||target.hasAttribute('download');play(isDownload?'download':'click')},true);
 window.PPSX33Sounds={play};
 })();
